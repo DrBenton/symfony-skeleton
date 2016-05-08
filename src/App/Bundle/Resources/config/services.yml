@@ -1,0 +1,6 @@
+services:
+
+    app.twig.ext.core:
+        class: App\Bundle\Twig\AppCoreExtension
+        tags:
+            - { name: twig.extension }

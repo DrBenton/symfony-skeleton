@@ -1,0 +1,9 @@
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    form:
+        resources:
+            - bootstrap_3_layout.html.twig
+    paths:
+        %kernel.root_dir%/../src/App/Bundle/Resources/views: App

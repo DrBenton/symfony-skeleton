@@ -1,0 +1,17 @@
+/web/bundles/
+/web/adminer.php
+/app/config/parameters.yml
+/var/bootstrap.php.cache
+/var/SymfonyRequirements.php
+/var/cache/*
+/var/logs/app/*
+/var/logs/nginx/*
+!var/cache/.gitkeep
+!var/logs/app/.gitkeep
+!var/logs/nginx/.gitkeep
+/build/
+/vendor/
+/bin/*
+!bin/console
+!bin/symfony_requirements
+/*.phar

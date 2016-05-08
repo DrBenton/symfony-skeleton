@@ -1,0 +1,10 @@
+{% trans_default_domain 'forms' %}
+
+{{ form_start(newTodoForm) }}
+    {{ form_errors(newTodoForm) }}
+
+    {{ form_row(newTodoForm.content) }}
+
+    <button type="submit">{{ 'todo.create'|trans }}</button>
+
+{{ form_end(newTodoForm) }}

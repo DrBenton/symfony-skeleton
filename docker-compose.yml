@@ -1,0 +1,50 @@
+# * Install vendor dependencies with `docker-compose run --rm composer install`
+# * Lint your PHP code with `docker-compose run --rm phpcs fix`
+# * Init MySQL with `docker-compose run --rm phpcli bin/console doctrine:database:create` & `docker-compose run --rm phpcli bin/console doctrine:schema:update --force`
+#   (consider using a Doctrine migrations Bundle for a real project instead of "doctrine:schema:update")
+
+wwwdata:
+    image: busybox
+    volumes:
+        - .:/www-data
+
+nginx:
+    image: nginx:1.7
+    volumes_from:
+        - wwwdata
+    volumes:
+        - ./docker/nginx/shared/sites-enabled:/etc/nginx/conf.d/:ro
+    ports:
+        - 8088:80
+    links:
+        - phpfpm
+
+mysql:
+    image: mysql:5.7
+    environment:
+        MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+
+phpfpm:
+    build: docker/phpfpm
+    volumes_from:
+        - wwwdata
+    working_dir: /www-data
+    links:
+        - mysql
+
+phpcli: &phpcli
+    build: docker/phpcli
+    volumes_from:
+        - wwwdata
+    working_dir: /www-data
+    entrypoint: php
+    links:
+        - mysql
+
+composer:
+    <<: *phpcli
+    entrypoint: composer
+
+phpcs:
+    <<: *phpcli
+    entrypoint: php-cs-fixer

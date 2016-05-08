@@ -1,0 +1,9 @@
+page.title: TodoMVC
+
+todo:
+    list:
+        nb_todos: "{0} No TODO at the moment. You didn't procrastinate! :-)|{1} One TODO|[2, Inf] %count% TODOs"
+        mark_as_done: <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        delete: <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+    marked_as_done: TODO marked as "done"!
+    deleted: TODO deleted.

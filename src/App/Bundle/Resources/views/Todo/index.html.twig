@@ -1,0 +1,37 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        {% if todoList is not empty %}
+            {% set nbTodos = todoList|length %}
+            <h2>{{ 'todo.list.nb_todos'|transchoice(nbTodos, {'%count': nbTodos}) }}</h2>
+            <ul>
+                {% for todo in todoList %}
+                    <li class="{{ todo.done ? 'done' : 'pending' }}">
+                        {{ todo.content }}
+                        {% if todo.pending %}
+                            {{ httpPostButton(
+                                label = 'todo.list.mark_as_done'|trans,
+                                href = path('todo_mark_as_done', {todo: todo.id}),
+                                class = 'btn btn-default btn-sm',
+                                options = {safe_label: true}
+                            ) }}
+                        {% endif %}
+                        {{ httpPostButton(
+                            label = 'todo.list.delete'|trans,
+                            href = path('todo_delete', {todo: todo.id}),
+                            class = 'btn btn-default btn-sm',
+                            options = {safe_label: true}
+                        ) }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h2>{{ 'todo.list.nb_todos'|transchoice(0) }}</h2>
+        {% endif %}
+
+        {{ include('@App/Todo/_include/todo.form.html.twig', {
+            newTodoForm: newTodoForm,
+        }, with_context=false ) }}
+    </div>
+{% endblock %}

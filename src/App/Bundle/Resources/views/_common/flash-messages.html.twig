@@ -1,0 +1,11 @@
+<div class="flash-messages-container">
+    {% set messagesTypes = app.session.flashbag.all %}
+
+    {% for type, messages in messagesTypes if messages is not empty %}
+        <div class="flash-messages {{ type }}">
+            {% for message in messages %}
+                <p class="bg-info">{{ message|trans }}</p>
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
